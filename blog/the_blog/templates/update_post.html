@@ -3,24 +3,26 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <h1>
-        Edit current Post    
-    </h1>
-    <br/><br/>
-    <div class = 'form-group'>
-        <form method = "POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class = "btn btn-dark">Update</button>
-        </form>
-    </div>
-    <br/>
-    <a href = "{% url 'home' %}" class = "btn btn-dark">Undo</a>
+{% if user.id == post.author.id %}
+        <h1>
+            Edit current Post    
+        </h1>
+        <br/><br/>
+        <div class = 'form-group'>
+            <form method = "POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class = "btn btn-dark">Update</button>
+            </form>
+        </div>
+        <br/>
+        <a href = "{% url 'home' %}" class = "btn btn-dark">Undo</a>
+{% else %}
+You are not logged in!
+{% endif %}
 
 {% else %}
-
 You are not logged in!
-
 {% endif %}
 
 {% endblock %}
