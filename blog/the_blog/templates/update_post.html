@@ -7,11 +7,13 @@
         Edit current Post    
     </h1>
     <br/><br/>
-    <form method = "POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class = "btn btn-dark">Update</button>
-    </form>
+    <div class = 'form-group'>
+        <form method = "POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class = "btn btn-dark">Update</button>
+        </form>
+    </div>
     <br/>
     <a href = "{% url 'home' %}" class = "btn btn-dark">Undo</a>
 
