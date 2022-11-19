@@ -29,4 +29,23 @@
 
 <a href = "{% url 'home' %}" class = "btn btn-dark">Back</a>
 
+<br/><br/>
+<hr>
+<br/>
+<form action = '{% url "like_post" post.pk %}' method = 'POST'>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        {% if liked %}
+            <button type = 'submit', name = 'post_id', value = '{{ post.id }}', class = 'btn btn-dark'>Unlike</button>
+        {% else %}
+            <button type = 'submit', name = 'post_id', value = '{{ post.id }}', class = 'btn btn-dark'>Like</button>
+        {% endif %}
+    {% else %}
+    You must be logged in to like this post! - <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+    
+    - Likes: {{ post.total_likes }}
+</form>
+
+
 {% endblock %}
