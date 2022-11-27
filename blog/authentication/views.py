@@ -1,10 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from .forms import SingUpForm, EditProfileForm, PasswordChangingForm
 from django.contrib.auth.views import PasswordChangeView
+from the_blog.models import Profile
+
 
 # Create your views here.
+
+class ShowProfilePageView(DetailView):
+    model = Profile
+    template_name = 'registration/user_profile.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
+        page_user = get_object_or_404(Profile, id = self.kwargs['pk'])
+        context["page_user"] = page_user
+        return context
 
 class PasswordsChangeView(PasswordChangeView):
     form_class = PasswordChangingForm

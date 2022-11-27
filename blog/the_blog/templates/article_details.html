@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
 {{ post.title_tag }}
 {% endblock %}
@@ -22,7 +22,9 @@
     {{ post.post_date }}
 </small>
 <br/><br/>
-
+{% if post.image %}
+<img src ='{{ post.image.url }}'><br/><br/>
+{% endif %}
 {{ post.body|safe }}
 
 <br/><br/>
@@ -46,6 +48,41 @@
     
     - Likes: {{ post.total_likes }}
 </form>
+<br/><br/>
 
+<div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        {% if post.author.profile.profile_picture %}
+            <img src="{{ post.author.profile.profile_picture.url }}" alt="..." width = 200 height = 200>
+        {% else %}
+            <img src="{% static 'the_blog/images/default_profile_pic.jpg' %}" alt="..." width = 200 height = 200>
+        {% endif %}
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ post.author.first_name }}
+            {{ post.author.last_name }}
+          </h5>
+          <p class = 'small text-muted'>
+            <a href = "{% url 'show_profile_page' post.author.profile.id %}">Profile Page</a> |
+            {% if post.author.profile.vk_url %}
+                <a href = '{{ post.author.profile.vk_url }}'>VK</a> | 
+            {% endif %}
+            {% if post.author.profile.instagram_url %}
+                <a href = '{{ post.author.profile.instagram_url }}'>Instagram</a> |
+            {% endif %}
+            {% if post.author.profile.twitter_url %}
+                <a href = '{{ post.author.profile.twitter_url }}'>Twitter</a>
+            {% endif %}
+          </p>
+          <p class="card-text">
+            {{ post.author.profile.bio }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

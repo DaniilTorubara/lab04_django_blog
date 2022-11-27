@@ -6,6 +6,8 @@
     Edit profile   
 </h1>
 <br/><br/>
+
+{{ user.profile.bio }}
 <form method = "POST">
     {% csrf_token %}
     {{ form.as_p }}
