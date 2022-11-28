@@ -3,11 +3,10 @@
 {% block content %}
 
 <h1>
-    Edit profile   
+    Edit Settings   
 </h1>
 <br/><br/>
 
-{{ user.profile.bio }}
 <form method = "POST">
     {% csrf_token %}
     {{ form.as_p }}
