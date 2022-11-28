@@ -8,9 +8,13 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
-from django.core.wsgi import get_wsgi_application
+project_home = '/home/mangalgblogs/blog'
+if project_home not in sys.path:
+    sys.path.insert(0, project_home)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog.settings")
+os.environ["DJANGO_SETTINGS_MODULE"] = "blog.settings"
 
+from django.core.wsgi import get_wsgi_applicatio
 application = get_wsgi_application()
